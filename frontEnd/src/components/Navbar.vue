@@ -8,7 +8,7 @@
                 <div class="message">
                     <h1>BROSTO</h1>
                     <div>
-                        <span>The best auto service in your city!</span>
+                        <span>{{ $t('navbar.message') }}!</span>
                     </div>
                 </div>
             </div>
@@ -33,19 +33,19 @@
         </div>
         <div class="nav_down">
             <div class="nav_down-item">
-                <router-link to="/">Home</router-link>
+                <router-link to="/">{{ $t('navbar.home') }}</router-link>
             </div>
             <div class="nav_down-item">
-                <router-link to="/services">Services</router-link>
+                <router-link to="/services">{{ $t('navbar.services') }}</router-link>
             </div>
             <div class="nav_down-item">
-                <router-link to="/contacts">Contacts</router-link>
+                <router-link to="/contacts">{{ $t('navbar.contacts') }}</router-link>
             </div>
             <div class="nav_down-item">
-                <router-link to="/about">About</router-link>
+                <router-link to="/about">{{ $t('navbar.about') }}</router-link>
             </div>
             <div class="nav_down-item">
-                <router-link to="/works">Our Works</router-link>
+                <router-link to="/works">{{ $t('navbar.works') }}</router-link>
             </div>
         </div>
     </div>
@@ -54,6 +54,14 @@
 <script>
 export default {
     name: 'Navbar',
+    components: {
+    },
+    data() {
+        return {
+        }
+    },
+    computed: {
+    },
 }
 </script>
 

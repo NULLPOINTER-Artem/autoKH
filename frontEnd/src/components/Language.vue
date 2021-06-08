@@ -25,6 +25,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
+import {
+    localizeGetterTypes,
+    localizeMutationTypes,
+} from '@/store/modules/localize.js'
+
 export default {
     name: 'Language',
     data() {
@@ -38,9 +45,14 @@ export default {
             showMenu: false,
         }
     },
+    computed: {
+        ...mapGetters({
+            lang: localizeGetterTypes.getLocale,
+        }),
+    },
     mounted() {
         this.selectedItem = this.items ? function() {
-            const defLang = this.items[0];
+            const defLang = this.items.find((item) => item.lang == this.lang);
             this.items = this.items.filter((item) => item.id !== defLang.id);
             return defLang;
         }.bind(this)() : 'None';
@@ -51,9 +63,15 @@ export default {
         },
         selectItem(id) {
             this.items.push(this.selectedItem);
+
             this.selectedItem = this.items.find((item) => item.id === id);
             this.items = this.items.filter((item) => item.id !== id);
+
+            this.$store.commit(localizeMutationTypes.setLocale, this.selectedItem.lang);
+
             this.toggleMenu();
+
+            location.pathname = this.selectedItem.lang + this.$router.history.current.path;
         },
     },
 }

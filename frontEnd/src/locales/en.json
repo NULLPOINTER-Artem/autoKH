@@ -1,0 +1,12 @@
+{
+    "navbar": {
+        "message": "The best auto service in your city",
+        "home": "Home",
+        "services": "Services",
+        "contacts": "Contacts",
+        "about": "About",
+        "works": "Out Works"
+    },
+    "footer": {
+    }
+}
