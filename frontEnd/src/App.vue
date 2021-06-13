@@ -1,4 +1,4 @@
-<template :key="lang">
+<template>
     <div id="app">
         <Navbar/>
 
@@ -9,25 +9,14 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-
-import {
-    localizeGetterTypes,
-} from '@/store/modules/localize.js'
 
 export default {
     name: 'Home',
     components: {
         Navbar,
         Footer,
-    },
-    computed: {
-        ...mapGetters({
-            lang: localizeGetterTypes.getLocale,
-        }),
     },
 }
 </script>

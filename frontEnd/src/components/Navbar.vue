@@ -1,39 +1,48 @@
 <template>
     <div class="nav">
-        <div class="nav">
-            <div class="nav-item">
-                <router-link to="/">Home</router-link>
-            </div>
-            <div class="nav-item">
-                <router-link to="/services">Services</router-link>
-            </div>
-            <div class="nav-item">
-                <router-link to="/contacts">Contacts</router-link>
-            </div>
-            <div class="nav-item">
-                <router-link to="/about">About</router-link>
-            </div>
-            <div class="nav-item">
-                <router-link to="/works">Our Works</router-link>
-            </div>
-            <div class="nav-item">
-                <router-link 
-                    to="/log"
-                    custom
-                    v-slot="{ navigate }">
-                    <span @click="navigate" role="link">
-                        <img src="./../assets/userAcc.png" alt="userAcc">
-                    </span>
-                </router-link>
-            </div>
+        <div class="nav-item">
+            <router-link :to="$i18nRoute({ name: 'Home' })">
+                {{ $t('navbar.home') }}</router-link>
+        </div>
+        <div class="nav-item">
+            <router-link :to="$i18nRoute({ name: 'Services' })">
+                {{ $t('navbar.services') }}</router-link>
+        </div>
+        <div class="nav-item">
+            <router-link :to="$i18nRoute({ name: 'Contacts' })">
+                {{ $t('navbar.contacts') }}</router-link>
+        </div>
+        <div class="nav-item">
+            <router-link :to="$i18nRoute({ name: 'About' })">
+                {{ $t('navbar.about') }}</router-link>
+        </div>
+        <div class="nav-item">
+            <router-link :to="$i18nRoute({ name: 'Works' })">
+                {{ $t('navbar.works') }}</router-link>
+        </div>
+        <div class="nav-item">
+            <router-link 
+                to="/log"
+                custom
+                v-slot="{ navigate }">
+                <span @click="navigate" role="link">
+                    <img src="./../assets/userAcc.png" alt="userAcc">
+                </span>
+            </router-link>
+        </div>
+        <div class="nav-item">
+            <Language/>
         </div>
     </div>
 </template>
 
 <script>
+import Language from '@/components/Language.vue';
+
 export default {
     name: 'Navbar',
     components: {
+        Language,
     },
     data() {
         return {
@@ -47,7 +56,7 @@ export default {
 <style lang="scss" scoped>
 .nav {
     width: 100%;
-    height: 5.5vh;
+    height: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,6 +112,9 @@ export default {
         img {
             width: 30%;
             cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 0 5% 0;
         }
     }
 }

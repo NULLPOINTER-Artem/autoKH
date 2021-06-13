@@ -2,7 +2,7 @@
     <div class="languages">
         <div class="selectedItem">
             <div class="selected">
-                <span>{{ selectedItem.lang }}</span>
+                <span>{{ selectedItem }}</span>
             </div>
             <div>
                 <img :class="[{'rotateWrench': showMenu}]" 
@@ -15,63 +15,46 @@
         >
             <div 
             class="itemsMenu-item" 
-            v-for="item in items"
-            :key="item.id"
-            @click="selectItem(item.id)">
-                <span>{{ item.lang }}</span>
+            v-for="item in supportedLocales"
+            :key="item"
+            @click="selectItem(item)">
+                <span>{{ item }}</span>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
-import {
-    localizeGetterTypes,
-    localizeMutationTypes,
-} from '@/store/modules/localize.js'
+import { Trans } from './../plugins/Translation.js'
 
 export default {
     name: 'Language',
     data() {
         return {
-            selectedItem: {},
-            items: [
-                {id: 1, lang: 'ru'},
-                {id: 2, lang: 'ua'},
-                {id: 3, lang: 'en'},
-            ],
             showMenu: false,
         }
     },
     computed: {
-        ...mapGetters({
-            lang: localizeGetterTypes.getLocale,
-        }),
-    },
-    mounted() {
-        this.selectedItem = this.items ? function() {
-            const defLang = this.items.find((item) => item.lang == this.lang);
-            this.items = this.items.filter((item) => item.id !== defLang.id);
-            return defLang;
-        }.bind(this)() : 'None';
+        supportedLocales() {
+            return Trans.supportedLocales
+        },
+        selectedItem() {
+            return Trans.currectLocale
+        },
     },
     methods: {
         toggleMenu() {
             this.showMenu = !this.showMenu;
         },
-        selectItem(id) {
-            this.items.push(this.selectedItem);
-
-            this.selectedItem = this.items.find((item) => item.id === id);
-            this.items = this.items.filter((item) => item.id !== id);
-
-            this.$store.commit(localizeMutationTypes.setLocale, this.selectedItem.lang);
-
-            this.toggleMenu();
-
-            location.pathname = this.selectedItem.lang + this.$router.history.current.path;
+        selectItem(locale) {
+            if (this.$i18n.locale !== locale) {
+                const to = this.$router.resolve({ params: {locale} })
+                
+                return Trans.changeLocale(locale).then(() => {
+                    this.$router.push(to.location)
+                    this.toggleMenu()
+                })
+            }
         },
     },
 }
@@ -79,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 .languages {
-    width: 40%;
+    width: 150px;
     height: 70%;
 
     position: relative;
@@ -91,7 +74,7 @@ export default {
         justify-content: center;
         align-items: center;
 
-        border: 1px solid #374961;
+        border: 1px solid #390900;
         border-radius: 7%;
 
         div {
@@ -131,9 +114,9 @@ export default {
 
         overflow-y: scroll;
 
-        border-left: 1px solid #374961;
-        border-right: 1px solid #374961;
-        border-bottom: 1px solid #374961;
+        border-left: 1px solid #390900;
+        border-right: 1px solid #390900;
+        border-bottom: 1px solid #390900;
         border-bottom-left-radius: 7%;
         border-bottom-right-radius: 7%;
 

@@ -1,56 +1,58 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/pages/Home.vue";
-import storageHelper from '@/helpers/persistentStorage.js';
+import { Trans } from './../plugins/Translation.js'
 
-const localeFromStorage = storageHelper.getItem('locale') || 'en';
-
-if (
-    location.pathname === '/' || 
-    location.pathname !== ('/' + localeFromStorage + '/') || 
-    !location.pathname
-) {
-    location.replace('/' + localeFromStorage + '/');
+function load(component) {
+    return () => import(`@/views/pages/${component}.vue`)
 }
 
 Vue.use(VueRouter);
 
-const routes = [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home,
-        props: true,
+const routes = [{
+    path: '/:locale',
+    component: {
+        template: "<router-view></router-view>"
     },
-    {
-        path: '/about',
-        name: "About",
-        component: () => import(/* webpackChunkName: "about" */ "../views/pages/About.vue"),
-        props: true,
-    },
-    {
-        path: '/services',
-        name: "Services",
-        component: () => import(/* webpackChunkName: "services" */ "../views/pages/Services.vue"),
-        props: true,
-    },
-    {
-        path: '/contacts',
-        name: "Contacts",
-        component: () => import(/* webpackChunkName: "contacts" */ "../views/pages/Contacts.vue"),
-        props: true,
-    },
-    {
-        path: '/works',
-        name: "Works",
-        component: () => import(/* webpackChunkName: "works" */ "../views/pages/Works.vue"),
-        props: true,
-    },
-];
+    beforeEnter: Trans.routeMiddleware,
+    children: [
+        {
+            path: '',
+            name: 'Home',
+            component: load('Home')
+        },
+        {
+            path: 'about',
+            name: 'About',
+            component: load('About')
+        },
+        {
+            path: 'contacts',
+            name: 'Contacts',
+            component: load('Contacts')
+        },
+        {
+            path: 'services',
+            name: 'Services',
+            component: load('Services')
+        },
+        {
+            path: 'works',
+            name: 'Works',
+            component: load('Works')
+        },
+    ]
+},
+{
+    path: '*',
+    redirect() {
+        return Trans.defaultLocale
+    }
+}
+]
 
 const router = new VueRouter({
-    base: '/' + localeFromStorage,
     mode: "history",
+    base: process.env.BASE_URL,
     routes,
 });
 
