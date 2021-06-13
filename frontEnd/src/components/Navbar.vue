@@ -33,6 +33,14 @@
 <script>
 export default {
     name: 'Navbar',
+    components: {
+    },
+    data() {
+        return {
+        }
+    },
+    computed: {
+    },
 }
 </script>
 
