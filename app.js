@@ -7,10 +7,10 @@ const port = 6060;
 const path = require('path');
 
 // MIDDLEWARE FOR STATIC FOLDER
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
+app.use(express.static(path.join(__dirname, '/frontEnd/dist/index.html')));
 
 app.get('/', (req, res) => {
-    res.sendFile(`${__dirname}/../frontend/dist/index.html`, (err) => {
+    res.sendFile(`${__dirname}/frontEnd/dist/index.html`, (err) => {
         console.log(err);
     });
 })

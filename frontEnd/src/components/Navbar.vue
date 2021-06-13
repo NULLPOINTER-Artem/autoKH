@@ -1,51 +1,30 @@
 <template>
     <div class="nav">
-        <div class="nav_up">
-            <div class="nav_up-item">
-                <img class="logo" src="./../assets/logo.png" alt="logo"/>
-            </div>
-            <div class="nav_up-item">
-                <div class="message">
-                    <h1>BROSTO</h1>
-                    <div>
-                        <span>The best auto service in your city!</span>
-                    </div>
-                </div>
-            </div>
-            <div class="nav_up-item">
-                <div class="showInline">
-                    <div class="phoneNumbers">
-                        <div>
-                            <span>(065)443-3443</span>
-                        </div>
-                        <div>
-                            <span>(065)443-3443</span>
-                        </div>
-                        <div>
-                            <span>(065)443-3443</span>
-                        </div>
-                    </div>
-                    <div class="userAccount">
-                        <img src="./../assets/userAcc.png" alt="userAcc"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="nav_down">
-            <div class="nav_down-item">
+        <div class="nav">
+            <div class="nav-item">
                 <router-link to="/">Home</router-link>
             </div>
-            <div class="nav_down-item">
+            <div class="nav-item">
                 <router-link to="/services">Services</router-link>
             </div>
-            <div class="nav_down-item">
+            <div class="nav-item">
                 <router-link to="/contacts">Contacts</router-link>
             </div>
-            <div class="nav_down-item">
+            <div class="nav-item">
                 <router-link to="/about">About</router-link>
             </div>
-            <div class="nav_down-item">
+            <div class="nav-item">
                 <router-link to="/works">Our Works</router-link>
+            </div>
+            <div class="nav-item">
+                <router-link 
+                    to="/log"
+                    custom
+                    v-slot="{ navigate }">
+                    <span @click="navigate" role="link">
+                        <img src="./../assets/userAcc.png" alt="userAcc">
+                    </span>
+                </router-link>
             </div>
         </div>
     </div>
@@ -59,122 +38,63 @@ export default {
 
 <style lang="scss" scoped>
 .nav {
+    width: 100%;
+    height: 5.5vh;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fcfcfc;
     font-weight: 600;
+
+    position: sticky;
+    top: 0;
     
     a {
-        color: #FFFFFF;
+        color: #181818;
         margin: 0 5px;
     }
 
     a.router-link-exact-active {
         position: relative;
-        color: #db7743;
+        color: #390900;
         transition: all 0.5s;
     }
 
-    a.router-link-exact-active::before {
+    a.router-link-exact-active::after {
+        background-image: url('./../assets/logo.png');
+        background-size: 20px 20px;
+        width: 20px;
+        height: 20px; 
+        background-repeat: no-repeat;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 0 2px 5px;
         content: '';
-        position: absolute;
-        width: 80%;
-        bottom: 0;
-        height: 2px;
-        background-color: #fff;
-        animation: lanzing 0.5s;
+        animation: fadeUp 0.5s;
     }
 
-    @keyframes lanzing {
+    @keyframes fadeUp {
         0% {
-            width: 0;
+            opacity: 0;
         }
         100% {
-            width: 80%;
+            opacity: 1;
         }
     }
 
-    .nav_up {
-        display:  flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #f2f3f4;
+    border-bottom: 2px solid #390900;
 
-        &-item {
-            width: 33.3%;
-            padding: 1% 0;
+    &-item {
+        width: 12%;
+        padding: .5% 0;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            .logo {
-                width: 30%;
-            }
-
-            .message {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-
-                h1 {
-                    font-size: 24px;
-                    font-weight: 800;
-                    margin-bottom: 3%;
-                }
-
-                span {
-                    font-size: 18px;
-                }
-            }
-
-            .showInline {
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-
-                .phoneNumbers {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-
-                    div {
-                        margin: 5% 0;
-                    }
-                }
-
-                .userAccount {
-                    display: flex;
-                    justify-content: flex-end;
-
-                    img {
-                        width: 40%;
-                    }
-                    img:hover {
-                        cursor: pointer;
-                    }
-                }
-            }
-        }
-    }
-
-    .nav_down {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #374961;
 
-        border-top: 1px solid #374961;
-        border-bottom: 1px solid #374961;
-
-        &-item {
-            width: 10%;
-            padding: .5% 0;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        img {
+            width: 30%;
+            cursor: pointer;
         }
     }
 }
