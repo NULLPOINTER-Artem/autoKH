@@ -1,25 +1,29 @@
 # BROSTO
 
-[Demo](http://)
+<!-- [Demo](http://) -->
 
 ## Project setup
 ```
-npm run install
+npm install 
+cd frontend/ && npm install
+npm run build
+cd .. && node app.js
+
 ```
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+cd frontend/ && npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
-npm run build
+cd frontend/ && npm run build
 ```
 
 ### Lints and fixes files
 ```
-npm run lint
+cd frontend/ && npm run lint
 ```
 
 ### Customize configuration

@@ -1,19 +1,10 @@
 {
-  "name": "backend",
+  "name": "BROSTO",
   "version": "1.0.0",
-  "description": "\"# autoKHBackend\"",
   "main": "app.js",
   "scripts": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/NULLPOINTER-Artem/autoKHBackend.git"
-  },
   "author": "Artem",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/NULLPOINTER-Artem/autoKHBackend/issues"
-  },
-  "homepage": "https://github.com/NULLPOINTER-Artem/autoKHBackend#readme",
   "dependencies": {
     "express": "^4.17.1"
   }
