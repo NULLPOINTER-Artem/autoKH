@@ -2,12 +2,14 @@ const cookieObj = {
     locale: '',
 };
 
-const clearCookie = () => {
+const clearCookieObj = () => {
     Object.keys(cookieObj).forEach(key => {
         cookieObj[key] = ''
     });
+}
 
-    document.cookie = "cookieObj=" + JSON.stringify(cookieObj);
+const clearCookie = () => {
+    document.cookie = '';
 };
 
 const setCookie = (key, value) => {
@@ -17,28 +19,29 @@ const setCookie = (key, value) => {
 
     cookieObj[key] = value;
 
-    document.cookie = "cookieObj=" + JSON.stringify(cookieObj);
+    clearCookie();
+    document.cookie = 'cookieObj=' + JSON.stringify(cookieObj);
 };
 
 const getCookie = () => {
     const cookie = document.cookie
+    let obj = {}
 
     if (cookie) {
         const splittedCookieObj = cookie.split('=')
-
-        let obj = {}
 
         try {
             obj = JSON.parse(splittedCookieObj[1])
         } catch(err) {
             console.error(err);
         }
-
-        return obj
     }
+
+    return obj
 }
 
 export default {
+    clearCookieObj,
     clearCookie,
     setCookie,
     getCookie,

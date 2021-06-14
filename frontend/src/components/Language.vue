@@ -51,7 +51,6 @@ export default {
                 const to = this.$router.resolve({ params: {locale} })
                 
                 Trans.changeLocale(locale).then(() => {
-                    console.dir(to)
                     this.$router.push(to.location)
                     this.toggleMenu()
                 })
