@@ -9,7 +9,7 @@ const path = require('path');
 // MIDDLEWARE FOR STATIC FOLDER
 app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(`${__dirname}/frontend/dist/index.html`, (err) => {
         console.log(err);
     });
