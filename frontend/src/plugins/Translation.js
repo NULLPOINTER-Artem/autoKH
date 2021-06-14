@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { i18n } from '../i18n.js'
+import cookie from '@/helpers/cookie.js'
 
 const Trans = {
     get defaultLocale() {
@@ -49,6 +50,16 @@ const Trans = {
             return Trans.setI18nLocaleInServices(locale)
         })
     },
+    checkCookieOnSelectedLanguage() {
+        const cookieObj = cookie.getCookie() ?? {};
+        const locale = cookieObj.locale;
+
+        if (locale && Trans.isLocaleSupported(locale)) {
+            return locale
+        } else {
+            return false
+        }
+    },
     isLocaleSupported(locale) {
         return Trans.supportedLocales.includes(locale)
     },
@@ -56,9 +67,14 @@ const Trans = {
         return import(`@/locales/${locale}.json`)
     },
     setI18nLocaleInServices(locale) {
-        Trans.currectLocale = locale
-        axios.defaults.headers.common['Accept-language'] = locale
-        document.querySelector('html').setAttribute('lang', locale)
+        Trans.currectLocale = locale;
+
+        axios.defaults.headers.common['Accept-language'] = locale;
+        document.querySelector('html').setAttribute('lang', locale);
+
+        // write seleted locale into cookie
+        cookie.setCookie('locale', locale);
+
         return locale
     },
     routeMiddleware(to, from, next) {

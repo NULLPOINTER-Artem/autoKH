@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { Trans } from '@/plugins/Translation.js'
+
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -17,6 +19,15 @@ export default {
     components: {
         Navbar,
         Footer,
+    },
+    created() {
+        const locale = Trans.checkCookieOnSelectedLanguage();
+
+        if (locale) {
+            Trans.changeLocale(locale).then(() => {
+                this.$router.push(Trans.i18nRoute({ name: 'Home' }))
+            })
+        }
     },
 }
 </script>

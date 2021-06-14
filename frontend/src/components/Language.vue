@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { Trans } from './../plugins/Translation.js'
+import { Trans } from '@/plugins/Translation.js'
 
 export default {
     name: 'Language',
@@ -50,7 +50,8 @@ export default {
             if (this.$i18n.locale !== locale) {
                 const to = this.$router.resolve({ params: {locale} })
                 
-                return Trans.changeLocale(locale).then(() => {
+                Trans.changeLocale(locale).then(() => {
+                    console.dir(to)
                     this.$router.push(to.location)
                     this.toggleMenu()
                 })
